@@ -1,0 +1,10 @@
+# Environment variables / API keys
+.env
+.env.*
+
+
+# Dependencies
+node_modules/
+
+# Logs
+*.log
