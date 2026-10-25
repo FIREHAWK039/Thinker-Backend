@@ -4,8 +4,17 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 
 import userRoutes from "./routes/user.route.js";
-
+import staticRoutes from "./routes/static.route.js";
 const app = express();
+
+app.set("view engine", "ejs");
+app.set("views", "./src/views");
+
+
+
+
+app.use("/", staticRoutes);
+
 
 // CORS
 app.use(
@@ -46,5 +55,9 @@ app.get("/", (req, res) => {
         <a href="/api/v1/users/register">Register</a>
     `);
 });
+
+
+
+
 
 export { app };
