@@ -1,40 +1,50 @@
-import express from "express"
-import cors from "cors"
-import cookieParser from "cookie-parser"
+import "dotenv/config";
+import express from "express";
+import cors from "cors";
+import cookieParser from "cookie-parser";
 
-const app = express()
+import userRoutes from "./routes/user.route.js";
 
-app.use(cors({
-    origin: process.env.CORS_ORIGIN,
-    credentials: true,
+const app = express();
 
-}))
-
-app.use(express.json({limit:"16kb"}))
-app.use(express.urlencoded({extended: true,limit: '16kb'})) //express struglle with nested object use true
-app.use(express.static("public"))
-app.use(cookieParser())
-
-
-
-
-//routes import 
-import userRoutes from "./routes/user.route.js"
-
-//routes declaration 
-app.use("/api/v1/chat", userRoutes)
-
-app.use((err, req, res, next) => {
-    const statuscode = err.statuscode || 500
-    const message = err.message || "Internal Server Error"
-
-    return res.status(statuscode).json({
-        success: false,
-        message: message,
-        
+// CORS
+app.use(
+    cors({
+        origin: process.env.CORS_ORIGIN,
+        credentials: true,
     })
-})
+);
 
-//http://localhost:8000/api/v1/users/register
+// Body parsers
+app.use(express.json({ limit: "16kb" }));
 
-export {app}
+app.use(
+    express.urlencoded({
+        extended: true,
+        limit: "16kb",
+    })
+);
+// Routes
+app.use("/api/v1/users", userRoutes);
+// Cookie parser
+app.use(cookieParser());
+
+// Static files
+app.use(express.static("public"));
+
+
+
+// Root route
+
+
+app.get("/", (req, res) => {
+    res.send(`
+        <h1>Welcome</h1>
+
+        <a href="/api/v1/users/login">Login</a>
+        <br>
+        <a href="/api/v1/users/register">Register</a>
+    `);
+});
+
+export { app };

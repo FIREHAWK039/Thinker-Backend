@@ -1,10 +1,13 @@
 import { Router } from "express";
-const router = Router()
+import { handleUserRegister, handleUserLogin, handleUserLogout } from "../controller/user.controller.js";
+import { requireAuth } from "../middleware/user.middleware.js";
+const router = Router();
 
 
-import { aiResponse } from "../controller/user.controller.js";
+router.post("/register", handleUserRegister);
+router.post("/login", handleUserLogin);
+router.get("/profile", requireAuth);
 
-router.route("/chat").get(aiResponse)
-
+router.post("/logout", handleUserLogout);
 
 export default router

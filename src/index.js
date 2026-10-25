@@ -1,15 +1,23 @@
-import dotenv from "dotenv"
-dotenv.config({
-    'path': './.env'
-})
-import {app} from "./app.js"
 
+import "dotenv/config";
+import mongoose from "mongoose";
+import { app } from "./app.js";
 
-    app.on("error",(error)=>{
-        console.log("can talk error",error)
-        throw error
-    })
+const PORT = process.env.PORT || 8000;
+const MONGO_URI = "mongodb://127.0.0.1:27017/thinker";
 
-    app.listen(process.env.PORT || 8000,()=>{
-        console.log(`serving on the port ${process.env.PORT || 8000}`)
-    })
+async function connectDB() {
+    try {
+        await mongoose.connect(MONGO_URI);
+        console.log("MongoDB connected");
+
+        app.listen(PORT, () => {
+            console.log(`Server running on port ${PORT}`);
+        });
+    } catch (err) {
+        console.log("MongoDB connection failed");
+    }
+}
+
+connectDB();
+
