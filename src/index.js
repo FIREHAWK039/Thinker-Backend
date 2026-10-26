@@ -1,8 +1,11 @@
-import dotenv from "dotenv"
-dotenv.config({
-    'path': './.env'
-})
-import {app} from "./app.js"
+import dotenv from "dotenv";
+
+dotenv.config({ path: "./src/.env" });
+const { app } = await import("./app.js");
+
+
+console.log("index",process.env.CORS_ORIGIN)
+
 
 
     app.on("error",(error)=>{

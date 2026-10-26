@@ -1,8 +1,11 @@
+import dotenv from "dotenv";
 import express from "express"
 import cors from "cors"
 import cookieParser from "cookie-parser"
 
 const app = express()
+
+console.log("app",process.env.CORS_ORIGIN)
 
 app.use(cors({
     origin: process.env.CORS_ORIGIN,
@@ -17,9 +20,11 @@ app.use(cookieParser())
 
 
 
-
+console.log("i am here")
 //routes import 
 import userRoutes from "./routes/user.route.js"
+
+
 
 //routes declaration 
 app.use("/api/v1/chat", userRoutes)
