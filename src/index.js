@@ -3,7 +3,7 @@ import "dotenv/config";
 import mongoose from "mongoose";
 import { app } from "./app.js";
 
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 8001;
 const MONGO_URI = "mongodb://127.0.0.1:27017/thinker";
 
 async function connectDB() {

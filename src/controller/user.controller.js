@@ -1,12 +1,10 @@
 import { User } from "../models/user.models.js";
 import bcrypt from "bcrypt";
-
-
-
 import crypto from "crypto";
+import { userSession } from "../models/user.session.js"
 
 
-import { userSession } from "../models/user.session.js";
+
 
 // REGISTER
 export const handleUserRegister = async (req, res) => {
@@ -58,9 +56,8 @@ export const handleUserRegister = async (req, res) => {
 
 
 // LOGIN
+// LOGIN
 export const handleUserLogin = async (req, res) => {
-
-
   try {
     const { email, password } = req.body;
 
@@ -115,15 +112,9 @@ export const handleUserLogin = async (req, res) => {
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
-    return res.status(200).json({
-      success: true,
-      message: "Login successful",
-      user: {
-        id: user._id,
-        name: user.name,
-        email: user.email,
-      },
-    });
+    // Redirect after successful login
+    return res.redirect("/profile");
+
   } catch (error) {
     console.error(error);
 
