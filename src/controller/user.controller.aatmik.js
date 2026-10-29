@@ -12,6 +12,8 @@ const aiResponse = asyncHandler( async (req,res)=>{
     
     
     const reply = await startChat(message);
+
+    console.log("reply from ai ",reply);
     
     
     return res
